@@ -8,9 +8,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public interface ProdutoRepository extends JpaRepository<Produtos,Integer> {
-    @Query("UPDATE produtos SET qtdEstoque=?2 WHERE id =?1")
-    public default void updateProduto(@Param("id") Integer id, @Param("qtdNova") int qtdNova) {
 
-    }
 
 }

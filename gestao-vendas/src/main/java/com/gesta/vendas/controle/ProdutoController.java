@@ -3,9 +3,11 @@ package com.gesta.vendas.controle;
 import com.gesta.vendas.model.Produtos;
 import com.gesta.vendas.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/Produto")
@@ -27,7 +29,13 @@ public class ProdutoController {
 
     @PutMapping("/{id}/{qtdNova}")
     private void atualizarEstoque(@PathVariable("id") Integer id, @PathVariable("qtdNova") int qtdNova){
-            produtoRepository.updateProduto(id, qtdNova);
+           Produtos atualizarProduto = produtoRepository.findById(id).orElse(null);
+           if (atualizarProduto!=null){
+               atualizarProduto.setQtdEstoque(qtdNova);
+               produtoRepository.save(atualizarProduto);
+           }
+
+
     }
 
 }
