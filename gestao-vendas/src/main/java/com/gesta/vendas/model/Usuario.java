@@ -13,6 +13,9 @@ public class Usuario {
     private String senha;
     private String tipoUsuario;
 
+    private String cpf;
+
+
     public String getNome() {
         return nome;
     }
@@ -45,6 +48,14 @@ public class Usuario {
         this.tipoUsuario = tipoUsuario;
     }
 
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
     @Override
     public String toString() {
         return "Usuario{" +
@@ -53,6 +64,7 @@ public class Usuario {
                 ", email='" + email + '\'' +
                 ", senha='" + senha + '\'' +
                 ", tipoUsuario='" + tipoUsuario + '\'' +
+                ", cpf='" + cpf + '\'' +
                 '}';
     }
 }

@@ -18,19 +18,32 @@ public class UsuarioController {
 
     }
     @PostMapping("RegistrarUsuario")
-    private  void registrarUser(@RequestBody Usuario usuario){
-        usuarioRepository.save(usuario);
+    private String registrarUser(@RequestBody Usuario usuario){
+
+        if(usuarioRepository.findUsuarioByEmailandSenha(usuario.getEmail(), usuario.getSenha())==null){
+            usuarioRepository.save(usuario);
+        }else {
+            return "Usaurio ja cadastrado";
+        }
+        return null;
     }
 
     @DeleteMapping("{id}")
     private void excluirConta(@PathVariable("id")Integer id){
         usuarioRepository.deleteById(id);
     }
-   @GetMapping("{nome}/{senha}")
-    private Usuario verificarUsaurioExistente(@PathVariable("nome") String nome, @PathVariable("senha") String senha){
-        return usuarioRepository.findUsuarioByNomeandSenha(nome,senha);
+   @GetMapping("{email}/{senha}")
+    private Usuario verificarUsaurioExistente(@PathVariable("email") String email, @PathVariable("senha") String senha){
+        return usuarioRepository.findUsuarioByEmailandSenha(email,senha);
    }
 
-
+    @PutMapping("{email}/{cpf}/{novaSenha}")
+    private void alteraSenha(@PathVariable("email") String email, @PathVariable("cpf") String cpf, @PathVariable("novaSenha") String novaSenha){
+        Usuario usuarioTrocarSenha = usuarioRepository.findUsuarioByEmailandCpf(email,cpf);
+        if (usuarioTrocarSenha !=null){
+            usuarioTrocarSenha.setSenha(novaSenha);
+            usuarioRepository.save(usuarioTrocarSenha);
+        }
+    }
 
 }

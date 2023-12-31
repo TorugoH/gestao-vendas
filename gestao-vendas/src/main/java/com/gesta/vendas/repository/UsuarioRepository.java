@@ -13,7 +13,10 @@ public interface UsuarioRepository extends JpaRepository<Usuario,Integer> {
          * IMPORTANTEEEE*
          Na query o nome do banco e a entidade do  objeto
          * **/
-        @Query("Select u from Usuario u where nome=?1 and senha=?2")
-        Usuario findUsuarioByNomeandSenha(@Param("nome") String nome, @Param("senha") String senha);
+        @Query("Select u from Usuario u where email=?1 and senha=?2")
+        Usuario findUsuarioByEmailandSenha(@Param("email") String email, @Param("senha") String senha);
+
+        @Query("Select u from Usuario u where email=?1 and cpf=?2")
+        Usuario findUsuarioByEmailandCpf(@Param("email")String email, @Param("cpf") String cpf);
 
 }
