@@ -1,11 +1,13 @@
 package com.gesta.vendas.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
 public class Produtos {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private Integer id;
     @Column(nullable = false)
     private String produto;
@@ -14,6 +16,10 @@ public class Produtos {
     @Column(length = 10)
     private int codigoBarra;
     private  int lote;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pedido_id")
+    @JsonIgnore
+    Pedido pedido;
 
     public Integer getId() {
         return id;
@@ -63,6 +69,14 @@ public class Produtos {
         this.lote = lote;
     }
 
+    public Pedido getPedido() {
+        return pedido;
+    }
+
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
+    }
+
     @Override
     public String toString() {
         return "Produtos{" +
@@ -72,6 +86,7 @@ public class Produtos {
                 ", qtdEstoque=" + qtdEstoque +
                 ", codigoBarra=" + codigoBarra +
                 ", lote=" + lote +
+                ", pedido=" + pedido +
                 '}';
     }
 }
